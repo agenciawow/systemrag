@@ -12,16 +12,20 @@ import os
 def main():
     """Executa a API de agents"""
     try:
+        # Configurações do servidor
+        host = os.getenv("AGENTS_HOST", "0.0.0.0")
+        port = os.getenv("AGENTS_PORT", "8001")
+        
         print("🚀 Iniciando API de Agents...")
-        print("📍 Porta: 8001")
-        print("📚 Docs: http://localhost:8001/docs")
+        print(f"📍 Porta: {port}")
+        print(f"📚 Docs: http://localhost:{port}/docs")
         print("🔐 Auth: Bearer Token required")
         print("=" * 50)
         
         # Executar API de agents (sem reload para evitar conflitos)
         result = subprocess.run([
             sys.executable, "-m", "uvicorn", "agents.api.main:app",
-            "--host", "0.0.0.0", "--port", "8001"
+            "--host", host, "--port", port
         ], cwd=os.path.dirname(os.path.abspath(__file__)))
         
         return result.returncode

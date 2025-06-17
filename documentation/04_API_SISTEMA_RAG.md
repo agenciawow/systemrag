@@ -24,9 +24,17 @@ pip install fastapi uvicorn
 ```
 
 ### 2. Configuração
-Adicione no arquivo `.env`:
+Configure as variáveis no arquivo `.env`:
 ```bash
+# Obrigatória - Sistema falha se não configurada
 API_KEY=sua-chave-api-segura-aqui
+
+# Configuração do servidor (opcional)
+SYSTEM_RAG_HOST=0.0.0.0
+SYSTEM_RAG_PORT=8000
+
+# CORS seguro (opcional)
+CORS_ALLOW_ORIGINS=http://localhost:3000,http://localhost:8000,http://localhost:8001
 ```
 
 ### 3. Iniciar Servidor
@@ -508,11 +516,18 @@ curl -H "Authorization: Bearer sua-api-key" \
 
 ## 🔒 Segurança
 
+### 🛡️ Recursos de Segurança Implementados
+1. **API Key obrigatória** - Sistema falha se não configurada (sem fallbacks inseguros)
+2. **CORS configurável** - Domínios específicos permitidos
+3. **Logging sanitizado** - Sem exposição de dados sensíveis
+4. **Validação rigorosa** - Entrada de dados validada
+5. **Limpeza automática** - Logs antigos removidos automaticamente
+
 ### Melhores Práticas
 1. **Use HTTPS em produção**
 2. **API Key forte** - Mínimo 32 caracteres
-3. **Rate limiting** - Implemente conforme necessário
-4. **Logs auditáveis** - Não logue dados sensíveis
+3. **Configure CORS** - Liste apenas domínios necessários
+4. **Rate limiting** - Implemente conforme necessário
 5. **Firewall** - Restrinja IPs se possível
 6. **Backup** - Configure backup das configurações
 

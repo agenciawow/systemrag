@@ -13,16 +13,20 @@ import os
 def main():
     """Executa a API do Sistema RAG"""
     try:
+        # Configurações do servidor
+        host = os.getenv("SYSTEM_RAG_HOST", "0.0.0.0")
+        port = os.getenv("SYSTEM_RAG_PORT", "8000")
+        
         print("🚀 Iniciando API do Sistema RAG...")
-        print("📍 Porta: 8000")
-        print("📚 Docs: http://localhost:8000/docs")
+        print(f"📍 Porta: {port}")
+        print(f"📚 Docs: http://localhost:{port}/docs")
         print("🔐 Auth: Bearer Token required")
         print("=" * 50)
         
         # Executar API do sistema RAG (sem reload para evitar conflitos)
         result = subprocess.run([
             sys.executable, "-m", "uvicorn", "system_rag.api.api:app", 
-            "--host", "0.0.0.0", "--port", "8000"
+            "--host", host, "--port", port
         ], cwd=os.path.dirname(os.path.abspath(__file__)))
         
         return result.returncode

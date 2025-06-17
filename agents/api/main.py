@@ -8,7 +8,7 @@ import os
 from fastapi import FastAPI, HTTPException, Depends, Security, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any, List, Optional
+from typing import Optional
 import logging
 from datetime import datetime
 
@@ -22,7 +22,9 @@ logger = logging.getLogger(__name__)
 security = HTTPBearer()
 
 # API Key fixa (carregada do .env, mesma da API atual)
-API_KEY = os.getenv("API_KEY", "sistemarag-api-key-2024")
+API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    raise ValueError("❌ API_KEY environment variable is required and not set")
 
 class APIKeyAuth:
     """Autenticação via API Key fixa (mesma da API atual)"""
@@ -48,13 +50,16 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Configurar CORS
+# Configuração CORS segura
+cors_origins = os.getenv("CORS_ALLOW_ORIGINS", "http://localhost:3000,http://localhost:8000,http://localhost:8001").split(",")
+cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Em produção, especificar domínios
+    allow_origins=cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Incluir roteadores

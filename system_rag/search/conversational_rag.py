@@ -108,8 +108,7 @@ class ModularConversationalRAG:
         # Inicialização do cliente OpenAI
         self.openai_client = OpenAI()
         
-        # Histórico da conversa
-        self.chat_history: List[Dict[str, str]] = []
+        # Memória gerenciada por Zep (quando integrado)
         
         # Inicializar pipeline RAG modular
         self._initialize_rag_pipeline()
@@ -275,19 +274,11 @@ DOCUMENTOS ANALISADOS:"""
                 "message": f"Erro na extração: {e}"
             }
     
-    def clear_history(self):
-        """Limpa histórico da conversa"""
-        self.chat_history = []
-        logger.info("Histórico de conversa limpo")
-    
-    def get_chat_history(self) -> List[Dict[str, str]]:
-        """Retorna histórico atual"""
-        return self.chat_history.copy()
+    # Métodos de histórico removidos - integrar com Zep no futuro
     
     def get_system_stats(self) -> Dict[str, Any]:
         """Estatísticas do sistema para monitoramento"""
         stats = {
-            "chat_history_length": len(self.chat_history),
             "system_health": "operational"
         }
         

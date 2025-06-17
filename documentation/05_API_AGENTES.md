@@ -1,4 +1,4 @@
-# 🚀 FastAPI - Sistema RAG Multimodal
+# 🤖 API de Agentes - Sistema RAG Multimodal com Memória Zep
 
 ## ⚡ Início Rápido
 
@@ -7,10 +7,21 @@
 pip install fastapi uvicorn
 ```
 
-### 2. Configurar API Key
-Adicione no arquivo `.env`:
+### 2. Configurar Variáveis de Ambiente
+Configure no arquivo `.env`:
 ```bash
-API_KEY=sistemarag-api-key-secure-2024
+# Obrigatória - Sistema falha se não configurada
+API_KEY=sua-chave-api-segura-aqui
+
+# Obrigatória - Para memória persistente dos agentes
+ZEP_API_KEY=sua-chave-zep-aqui
+
+# Configuração do servidor (opcional)
+AGENTS_HOST=0.0.0.0
+AGENTS_PORT=8001
+
+# CORS seguro (opcional)
+CORS_ALLOW_ORIGINS=http://localhost:3000,http://localhost:8000,http://localhost:8001
 ```
 
 ### 3. Iniciar API
@@ -27,8 +38,10 @@ uvicorn api:app --host 0.0.0.0 --port 8001 --workers 4
 # Documentação automática
 http://localhost:8001/docs
 
-# Teste automatizado
-python test_api.py
+# Testes automatizados focados
+python run_tests.py --test 04  # Busca com Agentes
+python run_tests.py --test 06  # Sistema de Memória Zep
+python run_tests.py --test 08  # Avaliação dos Agentes
 ```
 
 ---
@@ -52,9 +65,16 @@ curl -H "Authorization: Bearer sistemarag-api-key-secure-2024" \
 ```json
 {
   "query": "Quais produtos vocês têm?",
+  "user_id": "user123",
+  "session_id": "session123",
   "include_history": false
 }
 ```
+
+**🧠 Parâmetros Obrigatórios (Zep Memory):**
+- `user_id`: Identificador único do usuário (ex: "carlos", "user123")
+- `session_id`: Identificador da sessão de conversa (ex: "trabalho", "session123")
+- **Por que são obrigatórios?** Permitem que os agents usem o Zep para lembrar de conversas anteriores e manter contexto entre sessões
 
 **Resposta:**
 ```json
@@ -133,7 +153,9 @@ const response = await fetch('http://localhost:8001/search', {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    query: 'Quais produtos vocês têm?'
+    query: 'Quais produtos vocês têm?',
+    user_id: 'user123',
+    session_id: 'session123'
   })
 });
 
@@ -148,7 +170,11 @@ import requests
 response = requests.post(
     'http://localhost:8001/search',
     headers={'Authorization': 'Bearer sua-api-key'},
-    json={'query': 'Quais produtos vocês têm?'}
+    json={
+        'query': 'Quais produtos vocês têm?',
+        'user_id': 'user123',
+        'session_id': 'session123'
+    }
 )
 
 print(response.json()['answer'])

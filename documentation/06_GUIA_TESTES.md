@@ -2,7 +2,7 @@
 
 ## 📋 Visão Geral
 
-Esta pasta contém uma suíte completa de testes automatizados para todos os componentes do Sistema RAG Multimodal, incluindo testes unitários, de integração e end-to-end.
+Esta pasta contém uma suíte completa de testes automatizados para todos os componentes do Sistema RAG Multimodal, incluindo testes simples individuais e testes complexos de integração.
 
 ## 📁 Estrutura dos Testes
 
@@ -10,15 +10,114 @@ Esta pasta contém uma suíte completa de testes automatizados para todos os com
 tests/
 ├── __init__.py                 # Inicialização do módulo
 ├── conftest.py                 # Configuração global do pytest
-├── README.md                   # Este arquivo
-├── test_api.py                 # Testes da API REST
-├── test_ingestion.py           # Testes do pipeline de ingestão
-├── test_search.py              # Testes do sistema de busca
-├── test_evaluator.py           # Testes do sistema de avaliação
-└── test_integration.py         # Testes de integração end-to-end
+├── run_tests.py                # Executor de testes completo (original)
+├── simple/                     # 🆕 TESTES SIMPLIFICADOS
+│   ├── __init__.py
+│   ├── run_simple_tests.py     # 🎯 Interface simplificada
+│   ├── test_01_api_connections.py      # APIs e conectividade
+│   ├── test_02_document_ingestion.py   # Ingestão de documentos
+│   ├── test_03_system_rag_search.py    # Busca System RAG
+│   ├── test_04_agents_search.py        # Busca com Agentes
+│   ├── test_05_fastapi_stress.py       # Stress test FastAPI
+│   ├── test_06_zep_memory.py           # Sistema de memória Zep
+│   ├── test_07_system_rag_evaluation.py # Avaliação System RAG
+│   └── test_08_agents_evaluation.py    # Avaliação Agentes
+├── system_rag/                # Testes específicos System RAG
+│   ├── test_api.py
+│   ├── test_ingestion.py
+│   ├── test_search.py
+│   ├── test_evaluator.py
+│   └── test_integration.py
+└── agents/                    # Testes específicos Agentes
+    ├── test_agent_auth.py
+    ├── test_agent_core.py
+    ├── test_agent_system.py
+    └── test_zep_integration.py
 ```
 
-## 🚀 Executando os Testes
+## 🎯 TESTES SIMPLIFICADOS (RECOMENDADO)
+
+### 🚀 Execução Rápida e Simples
+
+Para uma experiência simplificada, use a nova interface de testes:
+
+```bash
+# Interface interativa (RECOMENDADO)
+python tests/simple/run_simple_tests.py
+
+# Ver todos os testes disponíveis
+python tests/simple/run_simple_tests.py --list
+
+# Executar teste específico
+python tests/simple/run_simple_tests.py --test 01
+
+# Executar todos os testes disponíveis
+python tests/simple/run_simple_tests.py --all
+
+# Ver status de todos os testes
+python tests/simple/run_simple_tests.py --status
+```
+
+### 📋 Testes Individuais Disponíveis
+
+| ID | Nome | Tempo | Descrição |
+|----|------|-------|-----------|
+| 01 | APIs e Conexões | 30s | Testa conectividade básica com todas as APIs |
+| 02 | Ingestão de Documentos | 2min | Testa processo de ingestão de documentos |
+| 03 | Busca System RAG | 1min | Testa funcionalidade de busca RAG |
+| 04 | Busca com Agentes | 2min | Testa sistema de agentes com memória |
+| 05 | Stress Test FastAPI | 3min | Testa requisições assíncronas/simultâneas |
+| 06 | Sistema Memória Zep | 3min | Testa integração com sistema Zep |
+| 07 | Avaliação System RAG | 5min | Avalia qualidade das respostas RAG |
+| 08 | Avaliação Agentes | 7min | Avalia qualidade dos agentes |
+
+### 🎮 Menu Interativo
+
+Execute `python tests/simple/run_simple_tests.py` para acessar o menu:
+
+```
+🧪 SISTEMA RAG MULTIMODAL - TESTES SIMPLIFICADOS
+================================================================
+Selecione um teste para executar:
+
+  01. ✅ APIs e Conexões (30s)
+  02. ⚠️ Ingestão de Documentos (2min)
+  03. ✅ Busca System RAG (1min)
+  04. ⚠️ Busca com Agentes (2min)
+  05. ✅ Stress Test FastAPI (3min)
+  06. ⚠️ Sistema Memória Zep (3min)
+  07. ✅ Avaliação System RAG (5min)
+  08. ⚠️ Avaliação Agentes (7min)
+
+  99. 📊 Mostrar status detalhado de todos os testes
+  00. 🚀 Executar todos os testes disponíveis
+   0. 🚪 Sair
+
+🎯 Escolha uma opção:
+```
+
+### 🎯 Perguntas de Avaliação Baseadas no Zep
+
+Os testes de avaliação agora usam perguntas específicas sobre o documento do Zep:
+
+1. **Básicas (fáceis)**:
+   - O que é o Zep?
+   - Qual é o principal componente do Zep?
+   - Contra qual sistema o Zep foi comparado?
+
+2. **Intermediárias**:
+   - Qual foi a performance do Zep no benchmark DMR?
+   - O que é o Graphiti no contexto do Zep?
+   - Quais são as limitações dos frameworks RAG atuais que o Zep resolve?
+
+3. **Avançadas (difíceis)**:
+   - Como o Zep lida com dados temporais e históricos?
+   - Qual foi a melhoria de latência que o Zep alcançou?
+   - Como o Zep sintetiza dados conversacionais não estruturados e dados empresariais estruturados?
+
+## 🔧 TESTES COMPLETOS (AVANÇADO)
+
+### 🚀 Executando os Testes
 
 ### Pré-requisitos
 

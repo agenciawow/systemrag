@@ -28,23 +28,18 @@ Documentação completa do Sistema RAG Inteligente com Agentes.
 
 5. [**05_API_AGENTES.md**](./05_API_AGENTES.md) 🔗
    - API dos Agentes (porta 8001)
-   - Endpoints para interação com agentes
-   - **🤖 Para integração com agentes**
+   - Sistema de memória Zep e interações inteligentes
+   - **🤝 Para usar agentes com memória persistente**
 
 6. [**06_GUIA_TESTES.md**](./06_GUIA_TESTES.md) 🧪
-   - Como executar e criar testes
-   - Testes do sistema e agentes
-   - **🔍 Para desenvolvimento e QA**
+   - Interface interativa de testes simplificados
+   - 8 testes individuais focados por funcionalidade
+   - **🎯 Para testar o sistema de forma simples e organizada**
 
-7. [**07_RELATORIO_TESTES.md**](./07_RELATORIO_TESTES.md) 📊
-   - Relatório detalhado dos testes
-   - Resultados e métricas
-   - **📈 Para análise de qualidade**
-
-8. [**07_ZEP_MEMORY.md**](./07_ZEP_MEMORY.md) 🧠
-   - Integração com Zep para memória persistente
-   - Configuração e uso avançado
-   - **💾 Para memória inteligente entre conversas**
+7. [**07_ZEP_MEMORY.md**](./07_ZEP_MEMORY.md) 🧠
+   - Integração completa com Zep para memória persistente
+   - Configuração, uso avançado e troubleshooting
+   - **💾 Para memória inteligente entre conversas e sessões**
 
 ## 🎯 **Começar Rapidamente**
 
@@ -58,10 +53,15 @@ Documentação completa do Sistema RAG Inteligente com Agentes.
 2. Configure: Mesmas variáveis de ambiente
 3. Use: Nova API de agents com descoberta automática
 
+### Para testar:
+1. Execute: `python run_tests.py` (interface interativa)
+2. Guia: [06_GUIA_TESTES.md](./06_GUIA_TESTES.md)
+3. 8 testes individuais focados por funcionalidade
+
 ### Para desenvolver:
 1. Leia: [01_VISAO_GERAL_COMPLETA.md](./01_VISAO_GERAL_COMPLETA.md)
-2. Testes: [06_GUIA_TESTES.md](./06_GUIA_TESTES.md)
-3. APIs: [04_API_SISTEMA_RAG.md](./04_API_SISTEMA_RAG.md)
+2. APIs: [04_API_SISTEMA_RAG.md](./04_API_SISTEMA_RAG.md) e [05_API_AGENTES.md](./05_API_AGENTES.md)
+3. Memória: [07_ZEP_MEMORY.md](./07_ZEP_MEMORY.md)
 
 ## 🗂️ **Organização**
 
@@ -74,7 +74,7 @@ documentation/
 ├── 04_API_SISTEMA_RAG.md         # 🔌 API do sistema RAG
 ├── 05_API_AGENTES.md             # 🔗 API dos agentes
 ├── 06_GUIA_TESTES.md             # 🧪 Guia de testes
-└── 07_RELATORIO_TESTES.md        # 📊 Relatório de testes
+└── 07_ZEP_MEMORY.md              # 🧠 Integração Zep Memory
 ```
 
 ## 🔧 **Contribuição**
@@ -88,5 +88,6 @@ Para adicionar nova documentação:
 
 - **Dúvidas gerais**: Consulte [02_MANUAL_INSTALACAO_USO.md](./02_MANUAL_INSTALACAO_USO.md)
 - **Problemas com agentes**: Veja [03_SISTEMA_AGENTES.md](./03_SISTEMA_AGENTES.md)  
-- **Issues de API**: Verifique [04_API_SISTEMA_RAG.md](./04_API_SISTEMA_RAG.md)
+- **Issues de API**: Verifique [04_API_SISTEMA_RAG.md](./04_API_SISTEMA_RAG.md) e [05_API_AGENTES.md](./05_API_AGENTES.md)
 - **Falhas em testes**: Consulte [06_GUIA_TESTES.md](./06_GUIA_TESTES.md)
+- **Problemas com memória**: Veja [07_ZEP_MEMORY.md](./07_ZEP_MEMORY.md)

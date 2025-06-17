@@ -62,20 +62,25 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Configurar CORS
+# Configuração CORS segura
+cors_origins = os.getenv("CORS_ALLOW_ORIGINS", "http://localhost:3000,http://localhost:8000,http://localhost:8001").split(",")
+cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure conforme necessário
+    allow_origins=cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Configuração de autenticação
 security = HTTPBearer()
 
 # API Key fixa (carregada do .env)
-API_KEY = os.getenv("API_KEY", "sistemarag-api-key-2024")
+API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    raise ValueError("❌ API_KEY environment variable is required and not set")
 
 class APIKeyAuth:
     """Autenticação via API Key fixa"""
@@ -418,6 +423,7 @@ async def run_ingestion_process(request: IngestRequest) -> Dict[str, Any]:
     import asyncio
     import os
     import tempfile
+    import time
     from urllib.parse import urlparse
     
     try:

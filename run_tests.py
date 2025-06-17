@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Script de conveniência para executar testes
+Executor Principal de Testes - Sistema RAG Multimodal
 
-Redireciona para o executor completo em tests/run_tests.py
+Execute os testes simplificados e focados do sistema.
 """
 
 import subprocess
@@ -10,11 +10,16 @@ import sys
 import os
 
 def main():
-    """Executa o script de testes principal"""
-    script_path = os.path.join("tests", "run_tests.py")
+    """Executa a interface simplificada de testes"""
+    script_path = os.path.join("tests", "simple", "run_simple_tests.py")
+    
+    if not os.path.exists(script_path):
+        print("❌ Arquivo de testes não encontrado!")
+        print(f"   Esperado em: {script_path}")
+        return 1
     
     try:
-        # Passar todos os argumentos para o script principal
+        # Passa todos os argumentos para o script de testes simplificados
         result = subprocess.run([
             sys.executable, script_path
         ] + sys.argv[1:], cwd=os.path.dirname(os.path.abspath(__file__)))
@@ -23,6 +28,7 @@ def main():
         
     except Exception as e:
         print(f"❌ Erro ao executar testes: {e}")
+        print(f"💡 Tente executar diretamente: python {script_path}")
         return 1
 
 if __name__ == "__main__":

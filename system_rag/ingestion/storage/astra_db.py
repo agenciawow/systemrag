@@ -261,17 +261,16 @@ class AstraDBInserter:
                 }
             }
             
-            # Log de debug
+            # Log de debug (sem dados sensíveis)
             batch_size_kb = len(json.dumps(payload).encode('utf-8')) / 1024
-            print(f"🔄 Inserindo lote: {len(batch_docs)} documentos ({batch_size_kb:.1f}KB)")
-            print(f"📡 URL: {self.collection_url}")
+            logger.info(f"Inserindo lote: {len(batch_docs)} documentos ({batch_size_kb:.1f}KB)")
             
             # Log sample document structure (sem dados sensíveis)
             if batch_docs:
                 sample_doc = batch_docs[0].copy()
                 if "$vector" in sample_doc:
                     sample_doc["$vector"] = f"[{len(sample_doc['$vector'])} dimensions]"
-                print(f"📋 Estrutura do documento: {list(sample_doc.keys())}")
+                logger.debug(f"Estrutura do documento: {list(sample_doc.keys())}")
             
             response = requests.post(
                 self.collection_url,
@@ -280,27 +279,27 @@ class AstraDBInserter:
                 timeout=self.timeout
             )
             
-            print(f"📈 Status da resposta: {response.status_code}")
+            logger.debug(f"Status da resposta: {response.status_code}")
             
             if response.status_code == 200:
                 result = response.json()
-                print(f"✅ Resposta JSON recebida: {list(result.keys())}")
+                logger.debug(f"Resposta JSON recebida: {list(result.keys())}")
                 
                 # Verificar se há erros na resposta
                 if "errors" in result and result["errors"]:
-                    print(f"❌ Erros do Astra DB: {result['errors']}")
+                    logger.error(f"Erros do Astra DB: {result['errors']}")
                     return None
                 
                 status = result.get("status", {})
                 inserted_ids = status.get("insertedIds", [])
-                print(f"🎯 IDs inseridos: {len(inserted_ids)}")
+                logger.info(f"IDs inseridos: {len(inserted_ids)}")
                 return inserted_ids
             else:
-                print(f"❌ Erro HTTP {response.status_code}: {response.text}")
+                logger.error(f"Erro HTTP {response.status_code}: {response.text[:200]}...")  # Trunca resposta longa
                 return None
                 
         except Exception as e:
-            print(f"❌ Erro na inserção: {e}")
+            logger.error(f"Erro na inserção: {e}")
             return None
     
     def _calculate_total_size_kb(self, docs: List[Dict[str, Any]]) -> float:

@@ -1774,13 +1774,13 @@ Agora você tem um sistema RAG completo com:
 
 **Para Suporte:**
 - 📖 Consulte este manual
-- 🧪 **Execute os testes**: `python tests/run_tests.py --smoke`
+- 🧪 **Execute os testes**: `python run_tests.py` (interface interativa)
 - 🔍 Use os comandos de diagnóstico
 - 📊 Monitore as métricas regularmente
 - 🚀 Comece pequeno e evolua gradualmente
 
 **Próximos Passos Recomendados:**
-1. **Teste o sistema**: Execute `python tests/run_tests.py --smoke`
+1. **Teste o sistema**: Execute `python run_tests.py` para testar individualmente
 2. **Configure para produção**: Use a API para integrar com seus sistemas
 3. **Monitore a qualidade**: Use o avaliador automático regularmente
 4. **Expanda gradualmente**: Adicione mais documentos e funcionalidades

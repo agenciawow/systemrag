@@ -9,14 +9,14 @@ Este sistema implementa um pipeline completo para processamento de documentos mu
 ### 🏗️ Arquitetura Atual
 
 ```
-📁 sistemarag/
-├── 🚀 Scripts de Execução (Iniciantes)
-│   ├── 📄 run_system_api.py     # Inicia API Sistema RAG (porta 8000)
-│   ├── 📄 run_agents_api.py     # Inicia API Agents (porta 8001)
-│   └── 📄 run_tests.py          # Executa todos os testes
+📁 systemrag/
+├── 🚀 Scripts de Execução (Principais)
+│   ├── 📄 run_system_api.py     # Inicia API Sistema RAG (configurável via env)
+│   ├── 📄 run_agents_api.py     # Inicia API Agents (configurável via env)
+│   └── 📄 run_tests.py          # Interface simplificada de testes
 │
 ├── 📁 system_rag/               # 🔧 Sistema RAG Core
-│   ├── 📁 api/                  # API REST Sistema RAG (porta 8000)
+│   ├── 📁 api/                  # API REST Sistema RAG (CORS seguro)
 │   ├── 📁 config/               # Configurações globais
 │   ├── 📁 models/               # Modelos de dados
 │   ├── 📁 utils/                # Utilitários e helpers
@@ -28,26 +28,36 @@ Este sistema implementa um pipeline completo para processamento de documentos mu
 │   ├── 📁 search/               # 🔍 Sistema de Busca
 │   │   ├── 📁 embeddings/       # Geração de embeddings
 │   │   ├── 📁 retrieval/        # Busca e recuperação
-│   │   └── 📄 conversational_rag.py  # Interface conversacional
+│   │   └── 📄 conversational_rag.py  # Interface (integração Zep futura)
 │   ├── 📄 ingestion.py          # Script de ingestão
 │   ├── 📄 search.py             # Script de busca
 │   └── 📄 rag_evaluator.py      # Sistema de avaliação
 │
-├── 📁 agents/                   # 🤖 Sistema de Agents (Avançado)
-│   ├── 📁 api/                  # API REST Agents (porta 8001)
+├── 📁 agents/                   # 🤖 Sistema de Agents (Zep Only)
+│   ├── 📁 api/                  # API REST Agents (CORS seguro)
 │   ├── 📁 core/                 # Agents, operadores e Zep client
 │   │   ├── 📄 zep_client.py     # 🧠 Cliente Zep para memória persistente
-│   │   ├── 📄 rag_search_agent.py # Agent principal com integração Zep
+│   │   ├── 📄 rag_search_agent.py # Agent principal (apenas Zep, sem memória local)
 │   │   └── 📄 operator.py       # Operador de descoberta automática
 │   ├── 📁 tools/                # Ferramentas para agents
 │   └── 📄 agent_evaluator.py    # Avaliação de agents
 │
-├── 📁 tests/                    # 🧪 Testes Organizados
-│   ├── 📁 system_rag/           # Testes do sistema RAG
-│   ├── 📁 agents/               # Testes dos agents
-│   └── 📄 run_tests.py          # Executor completo de testes
+├── 📁 tests/                    # 🧪 Testes Simplificados
+│   ├── 📁 simple/               # Testes individuais focados
+│   │   ├── 📄 run_simple_tests.py # Interface interativa
+│   │   ├── 📄 test_01_api_connections.py # APIs e conectividade
+│   │   ├── 📄 test_02_document_ingestion.py # Ingestão
+│   │   ├── 📄 test_03_system_rag_search.py # Busca RAG
+│   │   ├── 📄 test_04_agents_search.py # Busca Agentes
+│   │   ├── 📄 test_05_fastapi_stress.py # Stress FastAPI
+│   │   ├── 📄 test_06_zep_memory.py # Sistema Zep
+│   │   ├── 📄 test_07_system_rag_evaluation.py # Avaliação RAG
+│   │   └── 📄 test_08_agents_evaluation.py # Avaliação Agentes
+│   └── 📄 run_tests_legacy.py   # Executor antigo (backup)
 │
-├── 📁 test_configs/             # ⚙️ Configurações de Teste
+├── 📁 scripts/                  # 🧹 Scripts de Manutenção
+│   ├── 📄 cleanup_logs.py       # Limpeza automática de logs
+│   └── 📄 setup_log_cleanup.sh  # Configuração de limpeza
 │   ├── 📄 system_rag_questions.json   # Perguntas para avaliação RAG
 │   └── 📄 agent_questions.json        # Perguntas para avaliação agents
 │
@@ -99,18 +109,19 @@ Este sistema implementa um pipeline completo para processamento de documentos mu
 - **Image Fetcher** - Busca de imagens do Cloudflare R2
 - **Reranker** - Reordenação inteligente com GPT-4
 
-### ✅ Sistema de Agents (Avançado)
+### ✅ Sistema de Agents (Zep Memory)
 - **Agent Operator** - Descoberta automática de agents
-- **RAG Search Agent** - Agent especializado em busca
+- **RAG Search Agent** - Agent especializado (apenas memória Zep)
+- **Zep Integration** - Memória persistente entre sessões
 - **Retrieval Tool** - Ferramenta modular para busca
 - **Agent Evaluator** - Avaliação específica de agents
 
-### ✅ Suíte de Testes Automatizados
-- **Testes Organizados** - Separados por sistema (RAG + Agents)
-- **Menu Interativo** - Interface amigável para execução
-- **Testes Específicos** - API, Ingestão, Busca, Agents, Integração
-- **Configuração Flexível** - Perguntas configuráveis por JSON
-- **Runner Inteligente** - Execução seletiva por categoria
+### ✅ Suíte de Testes Simplificados
+- **Interface Interativa** - Menu amigável para execução individual
+- **8 Testes Focados** - Um para cada funcionalidade específica
+- **Perguntas Inteligentes** - Baseadas no documento Zep em português
+- **Avaliação por Níveis** - Fácil, intermediário, difícil
+- **Stress Testing** - Teste de carga para APIs FastAPI
 
 ### ✅ Documentação Completa para Iniciantes
 - **Manual de Instalação** - Passo-a-passo para iniciantes
@@ -130,7 +141,16 @@ pip install -r requirements.txt
 2. **Voyage AI** - Embeddings multimodais  
 3. **Cloudflare R2** - Armazenamento de imagens
 4. **Astra DB** - Banco vetorial
-5. **OpenAI** (opcional) - Para reranking e geração
+5. **OpenAI** - Para reranking e geração
+6. **Zep** - Sistema de memória persistente para agents
+
+### 🔒 Recursos de Segurança
+
+- **API Keys obrigatórias** - Sem fallbacks inseguros
+- **CORS configurável** - Domínios específicos permitidos
+- **Logging sanitizado** - Sem exposição de dados sensíveis
+- **Limpeza automática** - Logs antigos removidos automaticamente
+- **Validação rigorosa** - Entrada de dados validada
 
 ## ⚙️ Configuração
 

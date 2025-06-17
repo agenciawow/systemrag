@@ -52,8 +52,7 @@ class RAGSearchAgent:
         self.enable_reranking = enable_reranking
         self.enable_image_analysis = enable_image_analysis
         
-        # Histórico da conversa
-        self.chat_history: List[Dict[str, str]] = []
+        # Memória gerenciada apenas pelo Zep
         
         # Inicializar tool de retrieval
         self.retrieval_tool = RetrievalTool(
@@ -308,21 +307,7 @@ class RAGSearchAgent:
         else:
             return f"Ocorreu um erro na busca: {error}. Tente reformular sua pergunta."
     
-    def _limit_history(self, max_messages: int = 20):
-        """Limita o tamanho do histórico de conversa"""
-        if len(self.chat_history) > max_messages:
-            # Manter as mensagens mais recentes
-            self.chat_history = self.chat_history[-max_messages:]
-            logger.debug(f"Histórico limitado para {max_messages} mensagens")
-    
-    def clear_history(self):
-        """Limpa o histórico de conversa"""
-        self.chat_history = []
-        logger.info(f"[{self.agent_id}] Histórico limpo")
-    
-    def get_chat_history(self) -> List[Dict[str, str]]:
-        """Retorna o histórico atual da conversa"""
-        return self.chat_history.copy()
+    # Métodos de histórico removidos - usar apenas Zep para memória
     
     def get_agent_stats(self) -> Dict[str, Any]:
         """Obtém estatísticas do agente"""

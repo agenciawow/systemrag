@@ -29,21 +29,23 @@ Sistema de agents inteligentes baseado no sistema RAG existente, mantendo total 
 ## 🏗️ Arquitetura
 
 ```
-📁 sistemarag/
-├── 📄 run_agents_api.py          # 🚀 Script fácil para iniciar agents
+📁 systemrag/
+├── 📄 run_agents_api.py          # 🚀 Script para iniciar agents (configurável via env)
 │
-├── 📁 agents/                    # 🤖 Sistema de Agents
-│   ├── 📁 api/                   # API REST dos Agents (porta 8001)
+├── 📁 agents/                    # 🤖 Sistema de Agents (Zep Memory Only)
+│   ├── 📁 api/                   # API REST dos Agents (CORS seguro)
 │   │   ├── 📄 main.py           # FastAPI app principal
+│   │   ├── 📄 auth.py           # Autenticação segura (API key obrigatória)
 │   │   └── 📁 routes/           # Rotas organizadas
 │   ├── 📁 core/                 # Core dos agents
 │   │   ├── 📄 operator.py       # Descoberta automática de agents
-│   │   ├── 📄 rag_search_agent.py  # Agent principal de busca
+│   │   ├── 📄 rag_search_agent.py  # Agent principal (apenas memória Zep)
 │   │   └── 📄 zep_client.py     # 🧠 Cliente Zep para memória persistente
-│   └── 📁 tools/                # Ferramentas para agents
-│       └── 📄 retrieval_tool.py # Tool de busca integrada
+│   ├── 📁 tools/                # Ferramentas para agents
+│   │   └── 📄 retrieval_tool.py # Tool de busca integrada
+│   └── 📄 agent_evaluator.py    # Avaliação de agents
 │
-└── 📁 system_rag/               # 🔧 Sistema RAG original (inalterado)
+└── 📁 system_rag/               # 🔧 Sistema RAG original
 ```
 
 ## 🚀 Como Usar (Iniciantes)
@@ -135,23 +137,18 @@ Content-Type: application/json
   "message": "Sua pergunta aqui",
   "user_id": "user123",           # 🧠 OBRIGATÓRIO para memória Zep
   "session_id": "session123",     # 🧠 OBRIGATÓRIO para memória Zep 
-  "clear_history": false
 }
 ```
 
-**🧠 Novos Parâmetros Obrigatórios (Zep Memory):**
+**🧠 Parâmetros Obrigatórios (Zep Memory):**
 - `user_id`: Identificador único do usuário (ex: "carlos", "user123")
 - `session_id`: Identificador da sessão de conversa (ex: "trabalho", "session123")
-- **Por que são obrigatórios?** Permitem que os agents lembrem de conversas anteriores e mantenham contexto entre sessões
+- **Por que são obrigatórios?** Permitem que os agents usem o Zep para lembrar de conversas anteriores e manter contexto entre sessões
 
-### Histórico
-```http
-GET /v1/agents/{agent_id}/history
-Authorization: Bearer sistemarag-api-key-2024
-
-POST /v1/agents/{agent_id}/clear
-Authorization: Bearer sistemarag-api-key-2024
-```
+**🔒 Memória Exclusivamente Zep:**
+- Não há mais memória local nos agents
+- Todo histórico é gerenciado pelo Zep
+- Memória persistente entre sessões e reinicializações
 
 ### Teste
 ```http
@@ -178,13 +175,7 @@ class NovoAgente:
         # Lógica principal
         return "resposta"
     
-    def clear_history(self):
-        # Limpar histórico
-        pass
-    
-    def get_chat_history(self):
-        # Retornar histórico
-        return []
+    # Métodos de histórico foram removidos - use apenas Zep para memória
 ```
 
 ### 2. Descoberta Automática
@@ -202,7 +193,7 @@ class NovoAgente:
 ### RAGSearchAgent  
 - Agente especializado em busca
 - Usa RetrievalTool + OpenAI para resposta
-- Mantém histórico conversacional
+- Memória persistente via Zep (sem memória local)
 - Suporte a imagens
 
 ### AgentOperator
@@ -213,11 +204,13 @@ class NovoAgente:
 ## 🧪 Testes
 
 ```bash
-# Testar sistema completo
-python test_agent_system.py
+# Interface interativa de testes (RECOMENDADO)
+python run_tests.py
 
-# Testar apenas a tool
-python -c "from tools.retrieval_tool import test_retrieval_tool; print(test_retrieval_tool())"
+# Testes específicos de agentes
+python run_tests.py --test 04  # Busca com Agentes
+python run_tests.py --test 06  # Sistema de Memória Zep
+python run_tests.py --test 08  # Avaliação dos Agentes
 ```
 
 ## 🔄 Vantagens da Abordagem

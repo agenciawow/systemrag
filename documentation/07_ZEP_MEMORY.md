@@ -136,11 +136,11 @@ context, msgs, is_new = zep_client.ensure_session_context(\"session123\", \"user
 Na **API de Agents** (porta 8001), os parâmetros `user_id` e `session_id` são **obrigatórios**:
 
 ```bash
-curl -X POST \"http://localhost:8001/v1/agents/rag-search/ask\" \\
-  -H \"Authorization: Bearer sistemarag-api-key-secure-2024\" \\
+curl -X POST \"http://localhost:8001/search\" \\
+  -H \"Authorization: Bearer sua-chave-api-segura-aqui\" \\
   -H \"Content-Type: application/json\" \\
   -d '{
-    \"message\": \"Olá! Meu nome é Carlos\",
+    \"query\": \"Olá! Meu nome é Carlos\",
     \"user_id\": \"carlos123\",
     \"session_id\": \"session_carlos\"
   }'
@@ -172,15 +172,15 @@ Users
 ### **Executar Testes do Zep:**
 
 ```bash
-# Teste específico do Zep
-python -m pytest tests/agents/test_zep_integration.py -v
+# Interface interativa de testes (RECOMENDADO)
+python run_tests.py
 
-# Ou via runner
-python tests/run_tests.py --zep
+# Teste específico do Zep Memory
+python run_tests.py --test 06  # Sistema de Memória Zep
 
-# Menu interativo
-python tests/run_tests.py
-# Escolha: \"8. Testes de Integração Zep\"
+# Teste de Agentes com Zep
+python run_tests.py --test 04  # Busca com Agentes (inclui Zep)
+python run_tests.py --test 08  # Avaliação dos Agentes (inclui Zep)
 ```
 
 ### **Testes Incluídos:**

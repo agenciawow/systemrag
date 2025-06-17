@@ -51,9 +51,9 @@ python run_system_api.py             # API Sistema RAG (porta 8000)
 python run_agents_api.py             # API Agents (porta 8001)
 # ou: python -m system_rag.api / python -m agents.api
 
-# 4. Testar sistema  
-python run_all_tests.py              # Todos os testes
-python run_tests_agents.py           # Apenas agents
+# 4. Testar sistema (Interface Simplificada)  
+python run_tests.py                  # Interface interativa
+python run_tests.py --test 01        # Teste específico
 ```
 
 ## 🏗️ **Arquitetura**
@@ -70,9 +70,8 @@ sistema_rag/
 │   ├── core/          # Agents, operadores e Zep client
 │   ├── tools/         # Ferramentas reutilizáveis  
 │   └── api/           # API REST (porta 8001)
-├── tests/              # 🧪 Testes organizados
-│   ├── system_rag/    # Testes do sistema RAG
-│   └── agents/       # Testes dos agents
+├── tests/              # 🧪 Testes simplificados
+│   └── simple/        # Interface e testes individuais
 └── documentation/      # 📚 Documentação numerada
 ```
 

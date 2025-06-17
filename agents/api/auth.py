@@ -11,11 +11,10 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 # Configuração de autenticação
 security = HTTPBearer()
 
-# API Key fixa (carregada do .env, mesma da API atual)
-API_KEY = os.getenv("API_KEY", "sistemarag-api-key-2024")
+# API Key obrigatória do ambiente
+API_KEY = os.getenv("API_KEY")
 if not API_KEY or not API_KEY.strip():
-    API_KEY = "sistemarag-api-key-2024"
-    print("⚠️ API_KEY não encontrada no .env, usando valor padrão")
+    raise ValueError("❌ API_KEY environment variable is required and not set. Please configure it in your .env file.")
 
 class APIKeyAuth:
     """Autenticação via API Key fixa (mesma da API atual)"""

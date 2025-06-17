@@ -1,3 +1,0 @@
-"""
-Testes do Sistema RAG
-"""
