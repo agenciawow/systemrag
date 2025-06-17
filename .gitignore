@@ -1,0 +1,63 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos de configuração do VS Code e outras IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Compilados Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Arquivos temporários ou de backup
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de testes e relatórios
+*.coverage
+htmlcov/
+.tox/
+coverage.xml
+.cache/
+
+# Pip/uv build artifacts
+dist/
+build/
+.eggs/
+*.egg-info/
+*.egg
+
+# Arquivos gerados por Jupyter
+.ipynb_checkpoints/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos de lock de ferramentas alternativas
+poetry.lock
+Pipfile
+Pipfile.lock
+
+# Claude Code
+.claude
+
+# Resultados de avaliação
+system_rag/evaluation_results/*.json
+system_rag/evaluation_results/*.txt
+agents/evaluation_results/*.json
+agents/evaluation_results/*.txt
+rag_evaluation_*.json
+rag_evaluation_*.txt
+agent_evaluation_*.json
+agent_evaluation_*.txt
+agent_comparison_*.txt

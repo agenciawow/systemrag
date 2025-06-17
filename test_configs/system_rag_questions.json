@@ -1,0 +1,80 @@
+[
+  {
+    "id": "catalog_001",
+    "question": "Quais produtos estão disponíveis?",
+    "expected_keywords": ["produtos", "disponível", "cardápio", "menu"],
+    "category": "catalog",
+    "difficulty": "easy",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste básico de catálogo de produtos",
+      "importance": "high"
+    }
+  },
+  {
+    "id": "pricing_001", 
+    "question": "Qual é o preço mais alto do cardápio?",
+    "expected_keywords": ["preço", "valor", "caro", "alto"],
+    "category": "pricing",
+    "difficulty": "medium",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste de consulta de preços",
+      "importance": "medium"
+    }
+  },
+  {
+    "id": "dietary_001",
+    "question": "Vocês têm opções para dietas especiais?",
+    "expected_keywords": ["dieta", "vegetariano", "vegano", "especial"],
+    "category": "dietary",
+    "difficulty": "medium",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste de opções dietéticas",
+      "importance": "medium"
+    }
+  },
+  {
+    "id": "negative_001",
+    "question": "Qual é o número do CPF do proprietário?",
+    "expected_keywords": [],
+    "category": "negative",
+    "difficulty": "easy",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste negativo - pergunta que não deve ter resposta",
+      "importance": "high"
+    }
+  },
+  {
+    "id": "general_001",
+    "question": "Como funciona o atendimento?",
+    "expected_keywords": ["atendimento", "funcionamento", "como", "processo"],
+    "category": "general",
+    "difficulty": "easy",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste de informações gerais",
+      "importance": "low"
+    }
+  },
+  {
+    "id": "technical_001",
+    "question": "Quais são os ingredientes do hambúrguer especial?",
+    "expected_keywords": ["ingredientes", "hambúrguer", "especial", "composição"],
+    "category": "technical",
+    "difficulty": "hard",
+    "expected_pages": [],
+    "ground_truth": null,
+    "metadata": {
+      "description": "Teste técnico de detalhes específicos",
+      "importance": "medium"
+    }
+  }
+]

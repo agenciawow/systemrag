@@ -1,0 +1,23 @@
+[
+  {
+    "question": "Olá, você está funcionando?",
+    "expected_response_indicators": ["olá", "funcionando", "sim", "ativo"],
+    "test_type": "basic_functionality",
+    "description": "Teste básico de funcionamento",
+    "timeout": 10
+  },
+  {
+    "question": "Quais produtos vocês têm?",
+    "expected_response_indicators": ["produtos", "cardápio", "menu", "disponível"],
+    "test_type": "informational",
+    "description": "Teste de consulta informacional",
+    "timeout": 15
+  },
+  {
+    "question": "Obrigado pela ajuda!",
+    "expected_response_indicators": ["obrigado", "de nada", "disponha", "ajuda"],
+    "test_type": "conversational",
+    "description": "Teste de cortesia conversacional",
+    "timeout": 10
+  }
+]
